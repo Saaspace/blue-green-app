@@ -1,0 +1,12 @@
+metadata:
+  name: myapp-green
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+      color: green
+  template:
+    metadata:
+      labels:
+        app: myapp
+        color: green
