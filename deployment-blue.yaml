@@ -1,0 +1,12 @@
+metadata:
+  name: myapp-blue
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+      color: blue
+  template:
+    metadata:
+      labels:
+        app: myapp
+        color: blue
