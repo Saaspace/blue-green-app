@@ -17,8 +17,8 @@ pipeline {
     }
     stage('Push Image') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhub-pass', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-          sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+        withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKER_PASS')]) {
+          sh 'echo $DOCKER_PASS | docker login -u saaspace --password-stdin'
           sh 'docker push $IMAGE'
         }
       }
