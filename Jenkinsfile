@@ -1,24 +1,24 @@
 pipeline {
   agent any
   environment {
-    IMAGE = "saaspace/bluegreen:${BUILD_NUMBER}"  // Docker Hub Username/Repo + build number
-    COLOR = "green"                               // Default deploy color
+    IMAGE = "saaspace/bluegreen:${BUILD_NUMBER}"
+    COLOR = "green"
   }
   stages {
     stage('Clone Repo') {
       steps {
-        git 'https://github.com/Saaspace/blue-green-app.git'  // Correct GitHub repo
+        git 'https://github.com/Saaspace/blue-green-app.git'
       }
     }
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t $IMAGE .'  // Build docker image
+        sh 'docker build -t $IMAGE .'
       }
     }
     stage('Push Image') {
       steps {
-        withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKER_PASS')]) {
-          sh 'echo $DOCKER_PASS | docker login -u saaspace --password-stdin'
+        withCredentials([usernamePassword(credentialsId: 'dockerhub-pass', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
           sh 'docker push $IMAGE'
         }
       }
