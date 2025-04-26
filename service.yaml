@@ -1,0 +1,6 @@
+metadata:
+  name: myapp-service
+spec:
+  selector:
+    app: myapp
+    color: blue  # (Initially point to blue, later switch to green from Jenkins)
