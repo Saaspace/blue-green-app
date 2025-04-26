@@ -6,10 +6,11 @@ pipeline {
   }
   stages {
     stage('Clone Repo') {
-      steps {
-        git 'https://github.com/Saaspace/blue-green-app.git'
-      }
-    }
+  steps {
+    git branch: 'main', url: 'https://github.com/Saaspace/blue-green-app.git'
+  }
+}
+
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE .'
